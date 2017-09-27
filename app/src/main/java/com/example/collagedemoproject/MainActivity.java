@@ -298,12 +298,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        count++;
-        if (count==1)
-            setContentView(R.layout.activity_main);
-        else
-            finish();
-    }
+
 }
