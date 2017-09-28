@@ -26,22 +26,28 @@ import static com.example.collagedemoproject.utility.AppConstants.REQUEST_OPEN_G
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button make_collage,open_gallery;
-   private TextView array_size;
-     private ArrayList<Uri> mArrayUri;
+    private TextView array_size;
+    private ArrayList<Uri> mArrayUri;
     int count;
+    private boolean isCollageSet = false;
+    private Bundle savedInstanceState = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        initView();
+
+    }
+
+    private void initView(){
         make_collage = (Button) findViewById(R.id.make_collage);
         open_gallery = (Button) findViewById(R.id.open_gallery);
         array_size = (TextView) findViewById(R.id.array_size);
         make_collage.setOnClickListener(this);
         open_gallery.setOnClickListener(this);
-
-
     }
 
 
@@ -128,38 +134,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (mArrayUri.size()>10){
             Toast.makeText(this, "Only 10 Images are allowed...", Toast.LENGTH_SHORT).show();
         }
-      switch (mArrayUri.size()){
-          case 2:
-             setImageInCollageForTwo();
-              break;
-          case 3:
-              setImageInCollageForThree();
-              break;
-          case 4:
-              setImageInCollageForFour();
-              break;
-          case 5:
-              setImageInCollageForFive();
-              break;
-          case 6:
-              setImageInCollageForSix();
-              break;
-          case 7:
-              setImageInCollageForSeven();
-              break;
-          case 8:
-              setImageInCollageForEight();
-              break;
-          case 9:
-              setImageInCollageForNine();
-              break;
-          case 10:
-              setImageInCollageForTen();
-              break;
-      }
+        switch (mArrayUri.size()){
+            case 2:
+                setImageInCollageForTwo();
+                break;
+            case 3:
+                setImageInCollageForThree();
+                break;
+            case 4:
+                setImageInCollageForFour();
+                break;
+            case 5:
+                setImageInCollageForFive();
+                break;
+            case 6:
+                setImageInCollageForSix();
+                break;
+            case 7:
+                setImageInCollageForSeven();
+                break;
+            case 8:
+                setImageInCollageForEight();
+                break;
+            case 9:
+                setImageInCollageForNine();
+                break;
+            case 10:
+                setImageInCollageForTen();
+                break;
+        }
     }
 
     private void setImageInCollageForTwo(){
+        isCollageSet = true;
         setContentView(R.layout.collage_for_two);
         ImageView image_one=(ImageView)findViewById(R.id.image_one);
         ImageView image_two=(ImageView)findViewById(R.id.image_two);
@@ -169,6 +176,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
     private void setImageInCollageForThree(){
+        isCollageSet = true;
         setContentView(R.layout.collage_for_three);
         ImageView image_one=(ImageView)findViewById(R.id.image_one);
         ImageView image_two=(ImageView)findViewById(R.id.image_two);
@@ -180,6 +188,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
     private void setImageInCollageForFour(){
+        isCollageSet = true;
         setContentView(R.layout.collage_for_four);
         ImageView image_one=(ImageView)findViewById(R.id.image_one);
         ImageView image_two=(ImageView)findViewById(R.id.image_two);
@@ -193,6 +202,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setImageInCollageForFive(){
+        isCollageSet = true;
         setContentView(R.layout.collage_for_five);
         ImageView image_one=(ImageView)findViewById(R.id.image_one);
         ImageView image_two=(ImageView)findViewById(R.id.image_two);
@@ -205,6 +215,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
     private void setImageInCollageForSix(){
+        isCollageSet = true;
         setContentView(R.layout.collage_for_six);
         ImageView image_one=(ImageView)findViewById(R.id.image_one);
         ImageView image_two=(ImageView)findViewById(R.id.image_two);
@@ -219,6 +230,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
     private void setImageInCollageForSeven(){
+        isCollageSet = true;
         setContentView(R.layout.collage_for_seven);
         ImageView image_one=(ImageView)findViewById(R.id.image_one);
         ImageView image_two=(ImageView)findViewById(R.id.image_two);
@@ -235,6 +247,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setImageInCollageForEight(){
+        isCollageSet = true;
         setContentView(R.layout.collage_for_eight);
         ImageView image_one=(ImageView)findViewById(R.id.image_one);
         ImageView image_two=(ImageView)findViewById(R.id.image_two);
@@ -251,6 +264,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
     private void setImageInCollageForNine(){
+        isCollageSet = true;
         setContentView(R.layout.collage_for_nine);
         ImageView image_one=(ImageView)findViewById(R.id.image_one);
         ImageView image_two=(ImageView)findViewById(R.id.image_two);
@@ -268,6 +282,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
     private void setImageInCollageForTen(){
+        isCollageSet = true;
         setContentView(R.layout.collage_for_ten);
         ImageView image_one=(ImageView)findViewById(R.id.image_one);
         ImageView image_two=(ImageView)findViewById(R.id.image_two);
@@ -298,5 +313,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
+    @Override
+    public void onBackPressed() {
+        if (isCollageSet){
+            mArrayUri.clear();
+            setContentView(R.layout.activity_main);
+            initView();
+            isCollageSet=false;
+        }
+        else
+            finish();
+    }
 }
